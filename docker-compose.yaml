@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  db:
+    container_name: mysql
+    build: ./database
+    image: proj-db
+    environment:
+      DATABASE_URI: mysql+pymysql://root:password@mysql:3306/users
+      SECRET_KEY: password
+      MYSQL_DATABASE: users
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    image: proj-fe
+  backend:
+    container_name: backend
+    build: ./backend
+    image: proj-be
+  nginx:
+    image: nginx:latest
+    ports:
+    - target: 80
+      published: 80
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: ./nginx/nginx.conf
+      target: /etc/nginx/nginx.conf
