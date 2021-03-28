@@ -1,12 +1,5 @@
 version: "3.8"
 services:
-  frontend:
-    container_name: frontend
-    build: ./frontend
-    image: proj-fe
-    ports:
-    - target: 5000
-      published: 5000
   db:
     container_name: mysql
     build: ./database
@@ -19,11 +12,16 @@ services:
     container_name: backend
     build: ./backend
     image: proj-be
-    depends_on:
-      - "db"
     ports:
     - target: 5001
       published: 5001
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    image: proj-fe
+    ports:
+    - target: 5000
+      published: 5000
   nginx:
     image: nginx:latest
     ports:
