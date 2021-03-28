@@ -1,5 +1,12 @@
 version: "3.8"
 services:
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    image: proj-fe
+    ports:
+    - target: 5000
+      published: 5000
   db:
     container_name: mysql
     build: ./database
@@ -7,21 +14,21 @@ services:
     environment:
       DATABASE_URI: mysql+pymysql://root:password@mysql:3306/users
       SECRET_KEY: password
-      MYSQL_DATABASE: users
-  frontend:
-    container_name: frontend
-    build: ./frontend
-    image: proj-fe
+      MYSQL_ROOT_PASSWORD: password
   backend:
     container_name: backend
     build: ./backend
     image: proj-be
+    depends_on:
+      - "db"
+    ports:
+    - target: 5001
+      published: 5001
   nginx:
     image: nginx:latest
     ports:
     - target: 80
       published: 80
-      protocol: tcp
     volumes:
     - type: bind
       source: ./nginx/nginx.conf
