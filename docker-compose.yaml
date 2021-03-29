@@ -5,13 +5,15 @@ services:
     build: ./database
     image: proj-db
     environment:
-      DATABASE_URI: mysql+pymysql://root:password@mysql:3306/users
-      SECRET_KEY: password
       MYSQL_ROOT_PASSWORD: password
   backend:
     container_name: backend
     build: ./backend
     image: proj-be
+    environment:
+      DATABASE_URI: mysql+pymysql://root:password@mysql:3306/users
+    depends_on:
+      - db
     ports:
     - target: 5001
       published: 5001
