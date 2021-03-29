@@ -10,6 +10,7 @@ pipeline {
             steps {
                 sh "bash install-dependencies.sh"
             }
+        }
         stage('Build') {
             steps {
                 sh "docker-compose build --parallel"
