@@ -5,13 +5,13 @@ services:
     build: ./database
     image: proj-db
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password #${MYSQL_ROOT_PASSWORD}
   backend:
     container_name: backend
     build: ./backend
     image: proj-be
     environment:
-      DATABASE_URI: mysql+pymysql://root:password@mysql:3306/users
+      DATABASE_URI: mysql+pymysql://root:password@mysql:3306/users #${MYSQL_ROOT_PASSWORD}
     depends_on:
       - db
     ports:
