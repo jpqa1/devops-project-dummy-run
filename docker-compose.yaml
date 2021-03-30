@@ -3,15 +3,15 @@ services:
   db:
     container_name: mysql
     build: ./database
-    image: proj-db
+    image: jp22237/proj-db
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
   backend:
     container_name: backend
     build: ./backend
-    image: proj-be
+    image: jp22237/proj-be
     environment:
-      DATABASE_URI: mysql+pymysql://root:password@mysql:3306/users
+      DATABASE_URI: ${DATABASE_URI} #mysql+pymysql://root:password@mysql:3306/users
     depends_on:
       - db
     ports:
@@ -20,7 +20,7 @@ services:
   frontend:
     container_name: frontend
     build: ./frontend
-    image: proj-fe
+    image: jp22237/proj-fe
     ports:
     - target: 5000
       published: 5000
