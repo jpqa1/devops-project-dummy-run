@@ -6,6 +6,10 @@ services:
     image: jp22237/proj-db
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+    - type: volume
+      source: devops-project-db
+      target: /var/lib/mysql
   backend:
     container_name: backend
     build: ./backend
@@ -33,3 +37,5 @@ services:
     - type: bind
       source: ./nginx/nginx.conf
       target: /etc/nginx/nginx.conf
+volumes:
+  devops-project-db:
